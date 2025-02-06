@@ -1,38 +1,22 @@
 import { Router } from "express";
 import {pool} from '../db.js'
+import { createUsers, deleteUsers, getUsers, searchUsers, updateUsers } from "../controllers/users.controllers.js";
 
 const router = Router();
 
 //Obtener lista de usuarios
-router.get('/users', async(req,res) =>{
-    
-   const {rows}= await pool.query('SELECT * FROM users')
-   console.log(rows)
-   res.json(rows)
-});
+router.get('/users', getUsers);
 
 //Buscar usuario por ID
-router.get('/users/:userId', async(req,res) =>{
-    const {userId} =req.params
-    const {rows} = await pool.query(`SELECT * FROM users WHERE userId = ${userId}`)
-    res.json(rows)
-});
+router.get('/users/:userId', searchUsers);
 
 //Crear usuario
-router.post('/users', (req,res) =>{
-    res.send('creando usuaio')
-});
+router.post('/users', createUsers);
 
 //Eliminar usuario
-router.delete('/users/:userId', (req,res) =>{
-    const {userId} =req.params
-    res.send('obteniendo usuaios')
-});
+router.delete('/users/:userId', deleteUsers);
 
 //Actualizar usuario
-router.put('/users/:id', (req,res) =>{
-    const {userId} =req.params
-    res.send('obteniendo usuaios')
-});
+router.put('/users/:userId', updateUsers);
 
 export default router;
