@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {pool} from '../db.js'
-import { createUsers, deleteUsers, getUsers, searchUsers, updateUsers } from "../controllers/users.controllers.js";
+import { createUsers, deleteUsers, getUsers, login, searchUsers, updateUsers } from "../controllers/users.controllers.js";
 
 const router = Router();
 
@@ -10,6 +10,7 @@ router.get('/users', getUsers);
 //Buscar usuario por ID
 router.get('/users/:userId', searchUsers);
 
+router.post('/login', login)
 //Crear usuario
 router.post('/users', createUsers);
 

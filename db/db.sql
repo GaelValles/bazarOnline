@@ -7,8 +7,24 @@ CREATE TABLE users(
     creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (nombre, email, contra) 
-    VALUES ('Juan Perez', 'juan@gmail.com', 'juan123'),
-    ('Karol Perez', 'karol@gmail.com', 'karol123');
-    
-SELECT * FROM users;
+CREATE TABLE carrito_compras (
+    id_carrito SERIAL PRIMARY KEY,
+    FKuserId INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    agregado_en TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (FKuserId) REFERENCES users(userId) ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto) ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE productos (
+    id_producto SERIAL PRIMARY KEY, 
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10,2) NOT NULL,
+    stock INT NOT NULL DEFAULT 0,
+    categoria VARCHAR(50),
+    creado_en TIMESTAMP DEFAULT NOW()
+);
